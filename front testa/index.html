@@ -1,0 +1,265 @@
+<html>
+  <head>
+    <title>Zavrsni test</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/search.css" />
+    <script type="text/javascript" src="js/klijentskaValidacija.js"></script>
+    <script type="text/javascript" src="js/skripta.js"></script>
+  </head>
+  <body onload="loadAlbums()">
+    <div class="container">
+      <div id="logout" style="display: none">
+        <br />
+        <p id="info" style="text-align: center"></p>
+
+        <button class="btn btn-danger btn-sm" onclick="logout()">Odjava</button>
+        <br />
+        <br />
+        <form
+          method="post"
+          action="post/"
+          onsubmit="return validacijaFilter() && filterByYear()"
+        >
+          <br /><br />
+          <h3>Pretraga albuma po godini izdavanja</h3>
+          <table id="pretraga">
+            <tr>
+              <td>Najmanje:</td>
+              <td>
+                <input type="text" id="minYear" class="form-control" />
+              </td>
+            </tr>
+            <tr>
+              <td>Najvise:</td>
+              <td>
+                <input type="text" id="maxYear" class="form-control" />
+              </td>
+              <td>
+                <button class="btn btn-success btn-sm" type="submit">
+                  Trazi
+                </button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+      <br /><br />
+      <div id="pocetna-dugmad" style="display: block">
+        <h3>Korisnik nije prijavljen na sistem</h3>
+        <br />
+        <button
+          class="btn btn-warning btn-sm"
+          type="button"
+          style="width: 15%"
+          onclick="showRegistration()"
+        >
+          Registracija
+        </button>
+        <br />
+        <br />
+        <button
+          class="btn btn-success btn-sm"
+          type="button"
+          style="width: 15%"
+          onclick="showLogin()"
+        >
+          Prijava
+        </button>
+      </div>
+      <div id="loginForm" style="display: none">
+        <h3>Prijava korisnika</h3>
+        <form
+          method="post"
+          action="post/"
+          id="loginForm"
+          onsubmit="return loginUser()"
+        >
+          <table id="tableLogin">
+            <tr>
+              <th>Korisnicko ime:</th>
+              <td>
+                <input type="text" class="form-control" id="usernameLogin" />
+              </td>
+            </tr>
+            <tr>
+              <th>Lozinka:</th>
+              <td>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="passwordLogin"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <button
+                  class="btn btn-success btn-sm"
+                  type="submit"
+                  style="width: 30%"
+                >
+                  Prijavi se
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <button
+                  class="btn btn-warning btn-sm"
+                  type="button"
+                  style="width: 30%"
+                  onclick="initialState()"
+                >
+                  Odustajanje
+                </button>
+              </td>
+            </tr>
+          </table>
+          <br />
+        </form>
+      </div>
+
+      <div id="registerForm" style="display: none">
+        <h3>Registracija korisnika</h3>
+        <form
+          method="post"
+          action="post/"
+          id="registerForm"
+          onsubmit="return registerUser()"
+        >
+          <table id="registeTable">
+            <tr>
+              <th>Korisnicko ime:</th>
+              <td>
+                <input type="text" class="form-control" id="usernameRegister" />
+              </td>
+            </tr>
+            <tr>
+              <th>Email:</th>
+              <td>
+                <input type="email" class="form-control" id="emailRegister" />
+              </td>
+            </tr>
+            <tr>
+              <th>Lozinka:</th>
+              <td>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="passwordRegister"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Ponovi lozinku:</th>
+              <td>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="confirmPasswordRegister"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <button class="btn btn-success btn-sm" style="width: 30%">
+                  Registruj se
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <button
+                  class="btn btn-warning btn-sm"
+                  type="reset"
+                  style="width: 30%"
+                  onclick="initialState()"
+                >
+                  Odustajanje
+                </button>
+              </td>
+            </tr>
+          </table>
+        </form>
+
+        <link />
+      </div>
+      <br />
+      <br />
+
+      <div id="data-onload" style="display: none"></div>
+
+      <div id="addNewAlbum" style="display: none">
+        <br />
+        <br />
+        <h3 id="dodavanjeAlbuma" style="display: block">
+          Dodavanje novog albuma
+        </h3>
+        <h3 id="izmenaAlbuma" style="display: none">
+          Izmena postojeceg albuma
+        </h3>
+        <form
+          method="post"
+          action="post/"
+          onsubmit="return validacija() && submitAlbumForm()"
+        >
+          <table id="addNewAlbumTable">
+            <tr>
+              <td>Bend:</td>
+              <td>
+                <select id="selektBand" style="width: 100%"></select>
+              </td>
+            </tr>
+            <tr>
+              <td>Ime:</td>
+              <td><input type="text" id="inputName" class="form-control" /></td>
+            </tr>
+            <tr>
+              <td>Godina izdavanja:</td>
+              <td>
+                <input type="text" id="inputYear" class="form-control" />
+              </td>
+            </tr>
+            <tr>
+              <td>Zanr:</td>
+              <td>
+                <input type="text" id="inputGenre" class="form-control" />
+              </td>
+            </tr>
+            <tr>
+              <td>Broj prodatih primeraka (M):</td>
+              <td>
+                <input type="text" id="inputSold" class="form-control" />
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <button
+                  class="btn btn-success btn-sm"
+                  type="submit"
+                  style="width: 30%"
+                >
+                  Dodavanje
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <button
+                  class="btn btn-light btn-sm"
+                  type="button"
+                  style="width: 30%"
+                  onclick="clearAlbumForm()"
+                >
+                  Odustajanje
+                </button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
